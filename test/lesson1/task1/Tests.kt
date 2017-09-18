@@ -14,7 +14,7 @@ class Tests {
     }
 
     @Test
-    @Tag("Exampl")
+    @Tag("Example")
     fun discriminant() {
         assertEquals(0.0, discriminant(0.0, 0.0, 0.0), 1e-5)
         assertEquals(0.0, discriminant(1.0, -2.0, 1.0), 1e-5)
