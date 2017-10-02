@@ -119,7 +119,8 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
 fun numberRevert(number: Int): Int {
     val temp = number % 10 * 100
 
-            val second = number % 10 * 10
-    val third = second % 10
+            val second = number % 100 / 10 * 10
+    val third = number  / 100
+    return temp + second + third
 
 }
