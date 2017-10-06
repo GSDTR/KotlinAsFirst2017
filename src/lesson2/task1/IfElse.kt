@@ -57,8 +57,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
           else -> {
               when (t2 * v2 + t1 * v1 >= way) {
                   true -> t1 + (way - t1 * v1) / v2
-                  else -> {
-              t1 + t2 + (way - t1 * v1 - t2 * v2) / v3 }}}
+                  else -> t1 + t2 + (way - t1 * v1 - t2 * v2) / v3 }}
     }}
 
     /**
@@ -99,6 +98,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
         if (kingX == rookX || kingY == rookY) danger = danger + 1
         return danger
     }
+
     /**
      * Простая
      *
@@ -117,4 +117,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
      * Найти длину пересечения отрезков AB и CD.
      * Если пересечения нет, вернуть -1.
      */
-    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+            when {
+                (b in c..d && a !in c..d) -> b - c
+                (a in c..d && b !in c..d) -> d - a
+                (a in c..d && b in c..d) -> b - a
+                (c in a..d && d in a..b) -> d - c
+                else -> -1
+            }
+
