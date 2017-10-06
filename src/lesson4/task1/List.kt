@@ -219,9 +219,9 @@ fun factorizeToString(n: Int): String {
     var aaa = 0
     while ((m > 0.0) && (splitter <= Math.sqrt(n * 1.0) || m == splitter)) {
         if (m % splitter == 0.0) {
+            m /= splitter
             aaa = splitter.toInt()
-            str += ("$aaa*")
-            m /= splitter}
+            str += ("$aaa*")}
         else if (splitter % 2.0 == 0.0)
         {splitter += 1} else splitter += 2
     }
