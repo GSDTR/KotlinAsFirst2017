@@ -117,17 +117,12 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    var mid = list.sum()
-    var a = 0.0
-    for (element in list) {
-        a += 1
-    }
-    return when (a != 0.0) {
-        true -> mid / a
-        else -> 0.0
-    }
-}
+fun mean(list: List<Double>): Double =
+        when (list.isNotEmpty()) {
+            true -> list.sum() / list.size
+            else -> 0.0
+        }
+
 
 /**
  * Средняя
@@ -139,18 +134,14 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     var middle = list.sum()
-    var count = 0.0
-    for (element in list) {
-        count += 1
-    }
-    if (count != 0.0) {
-        middle /= count
+    if (list.isNotEmpty()) {
+        middle /= list.size
         for (i in 0 until list.size) {
             val element = list[i]
-            list[i] = element / middle
+            list[i] = element - middle
         }
-        return list
-    } else return list
+        return list}
+    else return list
 }
 
 /**
@@ -180,7 +171,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    var
+    var mean = 0.0
+    for (i in 0 until p.size) {
+        mean += p[i] * Math.pow(x, i * 1.0)
+    }
+    return mean
 }
 
 /**
@@ -193,7 +188,14 @@ fun polynom(p: List<Double>, x: Double): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    if (list.isNotEmpty()) {
+    for (i in 1 until list.size) {
+        list[i] += list[i - 1]
+    }
+    return list}
+    else return list
+}
 
 /**
  * Средняя
