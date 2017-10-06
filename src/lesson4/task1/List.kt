@@ -212,7 +212,26 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var m = n * 1.0
+    var splitter = 2.0
+    var str = ""
+    var aaa = 0
+    while ((m > 0.0) && (splitter <= Math.sqrt(n * 1.0) || m == splitter)) {
+        if (m % splitter == 0.0) {
+            aaa = splitter.toInt()
+            str += ("$aaa*")
+            m /= splitter}
+        else if (splitter % 2.0 == 0.0)
+        {splitter += 1} else splitter += 2
+    }
+        var str1 = ""
+        for (i in 0 until str.length - 1) {
+          str1 += str[i]
+    }
+    if (str1 == "") return "$n" else return str1
+    }
+
 
 /**
  * Средняя
