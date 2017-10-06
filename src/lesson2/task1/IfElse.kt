@@ -93,9 +93,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
                               rookX: Int, rookY: Int,
                               bishopX: Int, bishopY: Int): Int {
         var danger = 0
-        when (1.0 * (kingX - bishopX) / (kingY - bishopY)) {
-            1.0 -> danger = danger + 2
-            -1.0 -> danger = danger + 2
+        when (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)) {
+            true -> danger = danger + 2
         }
         if (kingX == rookX || kingY == rookY) danger = danger + 1
         return danger
