@@ -54,13 +54,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     val way = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-      return when (t1 * v1 >= way) {
-          true -> way / v1
-          else -> {
-              when (t2 * v2 + t1 * v1 >= way) {
-                  true -> t1 + (way - t1 * v1) / v2
-                  else -> t1 + t2 + (way - t1 * v1 - t2 * v2) / v3 }}
-    }}
+      return when {
+          (t1 * v1 >= way) -> way / v1
+          (t2 * v2 + t1 * v1 >= way)
+                  -> t1 + (way - t1 * v1) / v2
+          else -> t1 + t2 + (way - t1 * v1 - t2 * v2) / v3 }
+    }
 
     /**
      * Простая
@@ -75,8 +74,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
                            rookX1: Int, rookY1: Int,
                            rookX2: Int, rookY2: Int): Int {
         var danger = 0
-        if (kingX == rookX1 || kingY == rookY1) danger = danger + 1
-        if (kingX == rookX2 || kingY == rookY2) danger = danger + 2
+        if (kingX == rookX1 || kingY == rookY1) danger += 1
+        if (kingX == rookX2 || kingY == rookY2) danger += 2
         return danger
     }
 
@@ -94,10 +93,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
                               rookX: Int, rookY: Int,
                               bishopX: Int, bishopY: Int): Int {
         var danger = 0
-        when (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY)) {
-            true -> danger = danger + 2
-        }
-        if (kingX == rookX || kingY == rookY) danger = danger + 1
+        if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY))
+            danger += 2
+        if (kingX == rookX || kingY == rookY)
+            danger += 1
         return danger
     }
 
