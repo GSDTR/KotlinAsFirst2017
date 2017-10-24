@@ -2,6 +2,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 
 /**
  * Пример
@@ -108,7 +109,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var vector = 0.0
-    for (element in v) {vector += (Math.pow(element, 2.0))}
+    for (element in v) {
+        vector += sqr(element)
+    }
     return Math.sqrt(vector)
 }
 
@@ -118,11 +121,8 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double =
-        when (list.isNotEmpty()) {
-            true -> list.sum() / list.size
-            else -> 0.0
-        }
-
+        if (list.isNotEmpty()) list.sum() / list.size
+            else 0.0
 
 /**
  * Средняя
@@ -134,14 +134,12 @@ fun mean(list: List<Double>): Double =
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     var middle = list.sum()
-    if (list.isNotEmpty()) {
+    if (list.isEmpty()) return list else {
         middle /= list.size
         for (i in 0 until list.size) {
-            val element = list[i]
-            list[i] = element - middle
+            list[i] -= middle
         }
         return list}
-    else return list
 }
 
 /**
