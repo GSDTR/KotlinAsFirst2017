@@ -152,9 +152,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
 fun times(a: List<Double>, b: List<Double>): Double {
     var vectors = 0.0
     for (i in 0 until a.size) {
-        val elem1 = a[i]
-        val elem2 = b[i]
-        vectors += elem1 * elem2
+        vectors += a[i] * b[i]
     }
     return vectors
 }
@@ -170,8 +168,10 @@ fun times(a: List<Double>, b: List<Double>): Double {
  */
 fun polynom(p: List<Double>, x: Double): Double {
     var mean = 0.0
+    var power = 0.0
     for (i in 0 until p.size) {
-        mean += p[i] * Math.pow(x, i * 1.0)
+        mean += p[i] * Math.pow(x, power)
+        power += 1
     }
     return mean
 }
@@ -187,12 +187,10 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    if (list.isNotEmpty()) {
     for (i in 1 until list.size) {
         list[i] += list[i - 1]
     }
-    return list}
-    else return list
+    return list
 }
 
 /**
