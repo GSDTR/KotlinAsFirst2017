@@ -63,11 +63,12 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var m = n
     var count = 0
+    if (n == 0) return 1
     while (m != 0) {
         count += 1
         m /= 10
     }
-    if (n == 0) return 1 else return count
+    return count
 }
 
 /**
@@ -76,12 +77,17 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int =
-            when (n) {
-                1 -> 1
-                2 -> 1
-                else -> fib(n - 2) + fib(n - 1)
-            }
+fun fib(n: Int): Int {
+    if (n == 1) return 1
+    if (n == 2) return 1
+    var m1 = 1
+    var m2 = 1
+    for (i in 3..n) {
+        m2 += m1
+        m1 = m2 - m1
+    }
+    return m2
+}
 
 /**
  * Простая
@@ -92,11 +98,10 @@ fun fib(n: Int): Int =
 fun lcm(m: Int, n: Int): Int {
     var a = m
     var b = n
-    val temp = m * n
     while (a != b) {
         if (a > b) a -= b else b -= a
     }
-    return temp / a
+    return m * n / a
 }
 
 /**
