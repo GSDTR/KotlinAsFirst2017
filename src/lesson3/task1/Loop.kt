@@ -112,8 +112,8 @@ fun lcm(m: Int, n: Int): Int {
 fun minDivisor(n: Int): Int {
     var divisor = 2
     while (divisor != n) {
-        if (n % divisor == 0) break
-        else divisor += 1
+        if (n % divisor == 0) return divisor
+        divisor += 1
     }
     return divisor
 }
