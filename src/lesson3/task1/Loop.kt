@@ -113,7 +113,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var divisor = 2
-    while (divisor != n) {
+    for (i in 1 .. n) {
         if (n % divisor == 0) return divisor
         divisor += 1
     }
@@ -140,15 +140,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var s = m
-    var r = n
-    while ((s != 0) && (r != 0)) {
-        if (s >= r) s %= r else r %= s
-    }
-    s += r
-    return (s == 1)
-}
+fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
 /**
  * Простая
@@ -183,15 +175,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int {
-    var m = n
-    var newNumber = 0.0
-    for (i in 1 .. digitNumber(n)) {
-        newNumber += m % 10 * Math.pow(10.0, (digitNumber(n) - i)* 1.0)
-        m /= 10
-    }
-    return newNumber.toInt()
-}
+fun revert(n: Int): Int = TODO()
 
 /**
  * Средняя
@@ -200,20 +184,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean {
-    var list = mutableListOf<Double>()
-    var m = n
-    var count = 0
-    while (m != 0) {
-        list.add(m % 10 * 1.0)
-        m /= 10
-    }
-    if (list.size == 1) return true
-    for (i in 0 until list.size / 2){
-        if (list[i] == list[list.size - i - 1]) count += 1
-    }
-    return (count == digitNumber(n) / 2)
-}
+fun isPalindrome(n: Int): Boolean = TODO()
 
 /**
  * Средняя
@@ -221,8 +192,7 @@ fun isPalindrome(n: Int): Boolean {
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean =
-    (digitCountInNumber(n, n % 10) != digitNumber(n))
+fun hasDifferentDigits(n: Int): Boolean = TODO()
 
 /**
  * Сложная
@@ -231,12 +201,7 @@ fun hasDifferentDigits(n: Int): Boolean =
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int {
-    var i = 1.0
-    while (n != -1) {
-        sqr(i)
-    }
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная
