@@ -169,11 +169,11 @@ fun polynom(p: List<Double>, x: Double): Double {
     var mean = 0.0
     var power = 1.0
     if (p.isEmpty()) return 0.0
-    for (i in 1 until p.size) {
-        power *= x
+    for (i in 0 until p.size) {
         mean += p[i] * power
+        power *= x
     }
-    return mean + p[0]
+    return mean
 }
 
 /**
