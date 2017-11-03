@@ -249,6 +249,7 @@ fun convert(n: Int, base: Int): List<Int> {
     val list2 = mutableListOf<Int>()
     var m = n
     var numberBase: Int
+    if (n == 0) return listOf(0)
     while (m != 0) {
         numberBase = m % base
         list1.add(numberBase)
