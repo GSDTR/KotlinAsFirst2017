@@ -36,13 +36,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String =
-    when {
+        when {
         (age % 10 == 1 && age != 11 && age != 111) -> ("$age год")
         (age % 10 in 2..4
                 && (age < 12 || age > 14)
                 && (age > 114 || age < 112)) -> ("$age года")
         else -> {("$age лет")}
-    }
+        }
 
 /**
  * Простая
@@ -55,13 +55,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     val halfWay = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-      return when {
-          (t1 * v1 >= halfWay) -> halfWay / v1
-          (t2 * v2 + t1 * v1 >= halfWay)
-                  -> t1 + (halfWay - t1 * v1) / v2
-          else -> t1 + t2 + (halfWay - t1 * v1 - t2 * v2) / v3
-      }
+    return when {
+        (t1 * v1 >= halfWay) -> halfWay / v1
+        (t2 * v2 + t1 * v1 >= halfWay)
+        -> t1 + (halfWay - t1 * v1) / v2
+        else -> t1 + t2 + (halfWay - t1 * v1 - t2 * v2) / v3
     }
+}
 
 /**
  * Простая
@@ -75,11 +75,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                            rookX1: Int, rookY1: Int,
                            rookX2: Int, rookY2: Int): Int {
-        var danger = 0
-        if (kingX == rookX1 || kingY == rookY1) danger += 1
-        if (kingX == rookX2 || kingY == rookY2) danger += 2
-        return danger
-        }
+    var danger = 0
+    if (kingX == rookX1 || kingY == rookY1) danger += 1
+    if (kingX == rookX2 || kingY == rookY2) danger += 2
+    return danger
+}
 
 /**
  * Простая
@@ -94,13 +94,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                               rookX: Int, rookY: Int,
                               bishopX: Int, bishopY: Int): Int {
-        var danger = 0
-        if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY))
-            danger += 2
-        if (kingX == rookX || kingY == rookY)
-            danger += 1
-        return danger
-        }
+    var danger = 0
+    if (Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY))
+        danger += 2
+    if (kingX == rookX || kingY == rookY)
+        danger += 1
+    return danger
+}
 
 /**
  * Простая
