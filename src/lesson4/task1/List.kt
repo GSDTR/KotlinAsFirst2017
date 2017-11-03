@@ -200,7 +200,19 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var m = n
+    var divisor = 2
+    val list = mutableListOf<Int>()
+    while (m != 1) {
+        if (m % divisor == 0) {
+            m /= divisor
+            list.add(divisor)
+        }
+        else divisor += 1
+    }
+    return list
+}
 
 /**
  * Сложная
@@ -208,7 +220,21 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var m = n
+    var divisor = 2
+    val list = mutableListOf<String>()
+    while (m != 1) {
+        if (m % divisor == 0) {
+            m /= divisor
+            list.add("$divisor")
+            list.add("*")
+        }
+        else divisor += 1
+    }
+    list.removeAt(list.size - 1)
+    return list.joinToString(separator = "")
+}
 
 
 /**
