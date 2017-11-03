@@ -61,7 +61,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
                   -> t1 + (halfWay - t1 * v1) / v2
           else -> t1 + t2 + (halfWay - t1 * v1 - t2 * v2) / v3
       }
-}
+    }
 
 /**
  * Простая
@@ -79,7 +79,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
         if (kingX == rookX1 || kingY == rookY1) danger += 1
         if (kingX == rookX2 || kingY == rookY2) danger += 2
         return danger
-}
+        }
 
 /**
  * Простая
@@ -100,7 +100,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
         if (kingX == rookX || kingY == rookY)
             danger += 1
         return danger
-}
+        }
 
 /**
  * Простая
