@@ -240,8 +240,9 @@ fun squareSequenceDigit(n: Int): Int {
         i += 1
     }
     if (sumSqrNumber == n) return i*i % 10
+    i *= i
     for (j in 1 .. sumSqrNumber - n) {
-        i = i * i / 10
+        i /= 10
     }
     return i % 10
 }
