@@ -334,4 +334,25 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val count = lesson3.task1.digitNumber(n)
+    val list = mutableListOf<String>()
+    val listOfHundreds = listOf("сто", "двести", "триста", "четыреста",
+            "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+    val listOfTens = listOf("десять", "двадать", "тридцать", "сорок",
+            "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    val listOfTen = listOf("одиннадцать", "двенадцать", "тринадцать",
+            "четырнадцать", "пятнадцать", "шестнадцать",
+            "семьнадцать", "восемьнадцать", "девятнадцать")
+    val listOfNumbers = listOf("один", "два", "три", "четыре",
+            "пять", "шесть", "семь", "восемь", "девять")
+    val listOfThousands = listOf("тысяча", "тысяч", "тысячи")
+    if (count > 3) {
+        while (m != 0) {
+            listOfNumbers() m % 10
+        }
+
+    }
+    else
+
+}
