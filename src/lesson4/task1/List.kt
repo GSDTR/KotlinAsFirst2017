@@ -335,24 +335,42 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
+    var m = n
     val count = lesson3.task1.digitNumber(n)
     val list = mutableListOf<String>()
-    val listOfHundreds = listOf("сто", "двести", "триста", "четыреста",
-            "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
-    val listOfTens = listOf("десять", "двадать", "тридцать", "сорок",
-            "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    val listOfTen = listOf("одиннадцать", "двенадцать", "тринадцать",
-            "четырнадцать", "пятнадцать", "шестнадцать",
-            "семьнадцать", "восемьнадцать", "девятнадцать")
-    val listOfNumbers = listOf("один", "два", "три", "четыре",
-            "пять", "шесть", "семь", "восемь", "девять")
-    val listOfThousands = listOf("тысяча", "тысяч", "тысячи")
+    val listOfHundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ",
+            "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val listOfTens = listOf("", "", "двадцать ", "тридцать ", "сорок ",
+            "пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
+    val listOfTen = listOf("десять ", "одиннадцать ", "двенадцать ", "тринадцать ",
+            "четырнадцать ", "пятнадцать ", "шестнадцать ",
+            "семьнадцать ", "восемьнадцать ", "девятнадцать ")
+    val listOfNumbers = listOf("", "один ", "два ", "три ", "четыре ",
+            "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val listOfNumbersOverThousand  = listOf("", "одна ", "две ", "три ")
     if (count > 3) {
-        while (m != 0) {
-            listOfNumbers() m % 10
+        list.add(listOfHundreds [n / 100000])
+        if (n / 10000 % 10 == 1) {
+            list.add(listOfTen[n / 1000 % 10])
+            list.add("тысяч ")
         }
-
+        else {
+            list.add(listOfTens[n / 10000 % 10])
+            if (n / 1000 % 10 < 4) list.add(listOfNumbersOverThousand[n / 1000 % 10])
+                    else list.add(listOfNumbers[n / 1000 % 10])
+            when (n / 1000 % 10) {
+                1 -> list.add("тысяча ")
+                2, 3, 4 -> list.add("тысячи ")
+                else -> list.add("тысяч ")
+            }
+        }
     }
-    else
-
+    m = n % 1000
+    list.add(listOfHundreds[m / 100])
+    if (m / 10 % 10 == 1) list.add(listOfTen[m % 10])
+    else {
+        list.add(listOfTens[m / 10 % 10])
+        list.add(listOfNumbers[m % 10])
+    }
+    return list.joinToString(separator = "").trim()
 }
