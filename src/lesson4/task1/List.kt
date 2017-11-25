@@ -335,7 +335,6 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var m = n
     val count = lesson3.task1.digitNumber(n)
     val list = mutableListOf<String>()
     val listOfHundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ",
@@ -365,12 +364,11 @@ fun russian(n: Int): String {
             }
         }
     }
-    m = n % 1000
-    list.add(listOfHundreds[m / 100])
-    if (m / 10 % 10 == 1) list.add(listOfTen[m % 10])
+    list.add(listOfHundreds[n % 1000 / 100])
+    if (n % 1000 / 10 % 10 == 1) list.add(listOfTen[n % 1000 % 10])
     else {
-        list.add(listOfTens[m / 10 % 10])
-        list.add(listOfNumbers[m % 10])
+        list.add(listOfTens[n % 1000 / 10 % 10])
+        list.add(listOfNumbers[n % 1000 % 10])
     }
     return list.joinToString(separator = "").trim()
 }
