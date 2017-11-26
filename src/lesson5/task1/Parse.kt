@@ -110,6 +110,7 @@ fun flattenPhoneNumber(phone: String): String {
     val list = mutableListOf<String>()
     val parts = phone.split("-", "+", "(", ")", " ")
     try {
+        if (phone == "") return ""
         if (phone[0] == '+') list.add("+")
         for (part in parts) {
             if (part != "") list.add(part.toInt().toString())
