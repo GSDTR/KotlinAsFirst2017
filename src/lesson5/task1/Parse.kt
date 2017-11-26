@@ -82,7 +82,7 @@ fun dateDigitToStr(digital: String): String {
     val list = mutableListOf<String>()
     try {
         for (i in 0..2) {
-            if (parts[i].toInt() == 0) return ""
+            if ((parts[i].toInt() == 0) && (i != 2)) return ""
             if (i == 1) list.add(listOfMonths[parts[i].toInt() - 1])
             else list.add(parts[i].toInt().toString())
         }
@@ -106,7 +106,11 @@ fun dateDigitToStr(digital: String): String {
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val parts = phone.split("-", "+", "(", "(", " ")
+    return ""
+
+}
 
 /**
  * Средняя
