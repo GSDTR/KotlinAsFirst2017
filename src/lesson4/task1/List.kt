@@ -134,11 +134,11 @@ fun mean(list: List<Double>): Double =
 fun center(list: MutableList<Double>): MutableList<Double> {
     var middle = list.sum()
     if (list.isEmpty()) return list
-        middle /= list.size
-        for (i in 0 until list.size) {
-            list[i] -= middle
-        }
-        return list
+    middle /= list.size
+    for (i in 0 until list.size) {
+        list[i] -= middle
+    }
+    return list
 }
 
 /**
@@ -220,22 +220,8 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String {
-    var m = n
-    var divisor = 2
-    val list = mutableListOf<String>()
-    while (m != 1) {
-        if (m % divisor == 0) {
-            m /= divisor
-            list.add("$divisor")
-            list.add("*")
-        }
-        else divisor += 1
-    }
-    list.removeAt(list.size - 1)
-    return list.joinToString(separator = "")
-}
-
+fun factorizeToString(n: Int): String =
+        factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -275,7 +261,7 @@ fun convertToString(n: Int, base: Int): String {
         if (convert(n, base)[i] <= 9)
             listWithLetters.add(convert(n, base)[i].toString())
         else
-            listWithLetters.add(('a'.toInt() + convert(n, base)[i] - 10).toChar().toString())
+            listWithLetters.add(('a' + convert(n, base)[i] - 10).toString())
     }
     return listWithLetters.joinToString(separator = "")
 }
@@ -309,10 +295,10 @@ fun decimal(digits: List<Int>, base: Int): Int {
 fun decimalFromString(str: String, base: Int): Int {
     val list = mutableListOf<Int>()
     for (i in 0 until str.length) {
-        if ((str[i].toInt() < 'a'.toInt()) ||
-                (str[i].toInt() > 'z'.toInt()))
+        if ((str[i] < 'a') ||
+                (str[i] > 'z'))
             list.add(str[i].toString().toInt())
-        else list.add(10 + (str[i]).toInt() - 'a'.toInt())
+        else list.add(10 + (str[i] - 'a'))
     }
     return decimal(list, base)
 }
