@@ -69,11 +69,25 @@ fun main(args: Array<String>) {
 fun dateStrToDigit(str: String): String {
     val listOfMonths = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля",
     "августа", "сентября", "октября", "ноября", "декабря")
-    val list = mutableListOf<String>()
+    val list = mutableListOf("", "", "")
     val parts = str.split(" ")
-        list.add(str[0].toString())
-        list.add(str[2].toString())
-    return "0"
+    try {
+        for (i in 0 .. 11){
+            if (parts[1] == listOfMonths[i]) if (i > 8) list[1] = "${i + 1}"
+            else list[1] = "0${i + 1}"
+        }
+        if (list[1] == "") return ""
+        if (parts[0].toInt() in 1 .. 9) list[0] = "0${parts[0]}"
+            else list[0] = parts[0]
+        list[2] = parts[2]
+        return list.joinToString(separator = ".")
+    }
+    catch (e: NumberFormatException) {
+        return ""
+    }
+    catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
 }
 
 /**
@@ -171,15 +185,11 @@ fun bestLongJump(jumps: String): Int {
  */
 fun bestHighJump(jumps: String): Int {
     val parts = jumps.split(" ")
-    val list = mutableListOf<String>()
     var max = -1
     try {
-        for (part in parts) {
-            list.add(part)
-        }
-        for (i in 0 until list.size / 2) {
-            for (element in list[2 * i + 1]) {
-                if (element == '+') max = list[2 * i].toInt()
+        for (i in 0 until parts.size / 2) {
+            for (part in parts[2 * i + 1]) {
+                if (part == '+') max = parts[2 * i].toInt()
             }
         }
         return max
@@ -200,16 +210,12 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
-    val list = mutableListOf<String>()
     var count = 0
     try {
-        for (part in parts) {
-            list.add(part)
-        }
-        count += list[0].toInt()
-        for (i in 0 until list.size / 2) {
-            if (list[2 * i + 1] == "+") count += list[2 * (i + 1)].toInt()
-            else count -= list[2 * (i + 1)].toInt()
+        count += parts[0].toInt()
+        for (i in 0 until parts.size / 2) {
+            if (parts[2 * i + 1] == "+") count += parts[2 * (i + 1)].toInt()
+            else count -= parts[2 * (i + 1)].toInt()
         }
         return count
     }
@@ -229,13 +235,13 @@ fun plusMinus(expression: String): Int {
  */
 fun firstDuplicateIndex(str: String): Int {
     val parts = str.split(" ")
-    var str = parts[0]
+    var str1 = parts[0]
     var count = parts[0].length
-    for (i in 1 .. parts.size) {
-        count += parts[i].length
-        if (parts[i].toLowerCase() == str.toLowerCase()) return count + 1
-        str = parts[i]
+    for (i in 1 until parts.size) {
+        if (parts[i].toLowerCase() == str1.toLowerCase()) return count - parts[i].length
         count += 1
+        count += parts[i].length
+        str1 = parts[i]
     }
     return -1
 }
