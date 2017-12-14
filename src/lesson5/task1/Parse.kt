@@ -66,7 +66,15 @@ fun main(args: Array<String>) {
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val listOfMonths = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля",
+    "августа", "сентября", "октября", "ноября", "декабря")
+    val list = mutableListOf<String>()
+    val parts = str.split(" ")
+        list.add(str[0].toString())
+        list.add(str[2].toString())
+    return "0"
+}
 
 /**
  * Средняя
@@ -161,7 +169,25 @@ fun bestLongJump(jumps: String): Int {
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    val list = mutableListOf<String>()
+    var max = -1
+    try {
+        for (part in parts) {
+            list.add(part)
+        }
+        for (i in 0 until list.size / 2) {
+            for (element in list[2 * i + 1]) {
+                if (element == '+') max = list[2 * i].toInt()
+            }
+        }
+        return max
+    }
+    catch (e: NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная
@@ -172,7 +198,25 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(" ")
+    val list = mutableListOf<String>()
+    var count = 0
+    try {
+        for (part in parts) {
+            list.add(part)
+        }
+        count += list[0].toInt()
+        for (i in 0 until list.size / 2) {
+            if (list[2 * i + 1] == "+") count += list[2 * (i + 1)].toInt()
+            else count -= list[2 * (i + 1)].toInt()
+        }
+        return count
+    }
+    catch (e: NumberFormatException) {
+        throw NumberFormatException("IllegalArgumentException")
+    }
+}
 
 /**
  * Сложная
@@ -183,7 +227,18 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.split(" ")
+    var str = parts[0]
+    var count = parts[0].length
+    for (i in 1 .. parts.size) {
+        count += parts[i].length
+        if (parts[i].toLowerCase() == str.toLowerCase()) return count + 1
+        str = parts[i]
+        count += 1
+    }
+    return -1
+}
 
 /**
  * Сложная
