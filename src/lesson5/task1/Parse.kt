@@ -214,16 +214,19 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    val e = IllegalArgumentException("java.lang.NumberFormatException: Only signed numbers are allowed")
     val parts = expression.split(" ")
     var count = 0
-    count += parts[0].toInt()
-    for (i in 0 until parts.size / 2) {
-        if (parts[2 * i + 1] == "+") count += parts[2 * (i + 1)].toInt()
-        else count -= parts[2 * (i + 1)].toInt()
+    try {
+        count += parts[0].toInt()
+        for (i in 0 until parts.size / 2) {
+            if (parts[2 * i + 1] == "+") count += parts[2 * (i + 1)].toInt()
+            else count -= parts[2 * (i + 1)].toInt()
+        }
+        return count
     }
-    return count
-    throw e
+    catch (e: NumberFormatException) {
+        throw IllegalArgumentException()
+    }
 }
 
 /**
