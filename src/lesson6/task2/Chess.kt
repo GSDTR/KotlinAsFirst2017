@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson6.task2
 
+import java.lang.Integer.min
+
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
@@ -21,7 +23,15 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        var str = ""
+        if (column in 1..8 && row in 1..8) {
+            str += 'a' + (column - 1)
+            str += "$row"
+            return str
+        }
+        else return ""
+    }
 }
 
 /**
@@ -31,7 +41,10 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square =
+    if (notation[0] in 'a'..'h' && notation[1] in '1'..'8')
+        Square(notation[0] - 'a'+ 1, notation[1].toString().toInt())
+    else throw IllegalArgumentException()
 
 /**
  * Простая
@@ -72,7 +85,26 @@ fun rookMoveNumber(start: Square, end: Square): Int = TODO()
  *          rookTrajectory(Square(3, 5), Square(8, 5)) = listOf(Square(3, 5), Square(8, 5))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun rookTrajectory(start: Square, end: Square): List<Square> {
+    val list = mutableListOf<Square>()
+    when {
+        (start == end) -> list.add(start)
+        (start.column == end.column) -> {
+            list.add(start)
+            list.add(Square(start.column, end.row))
+        }
+        (start.row == end.row) -> {
+            list.add(start)
+            list.add(Square(end.column, start.row))
+        }
+        else -> {
+            list.add(start)
+            list.add(Square(start.column, end.row))
+            list.add(end)
+        }
+    }
+    return list
+}
 
 /**
  * Простая
@@ -117,7 +149,39 @@ fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    val list = mutableListOf<Square>()
+    when {
+        (start == end) -> list.add(start)
+        (start.row + start.column + end.row + end.column) % 2 != 0 ->
+                return list
+        (Math.abs(start.row - end.row) == Math.abs(start.column - end.column)) -> {
+            list.add(start)
+            list.add(end)
+        }
+        else -> {
+            list.add(start)
+            when {
+                (start.row == end.row) && (start.row in 1..4) ->
+                    list.add(Square(Math.abs(start.column - end.column) / 2 + min(end.column, start.column),
+                            start.row + Math.abs(start.column - end.column) / 2))
+                (start.row == end.row) && (start.row in 5..8) ->
+                    list.add(Square(Math.abs(start.column - end.column) / 2 + min(end.column, start.column),
+                            start.row - Math.abs(start.column - end.column) / 2))
+                (start.column == end.column) && (start.column in 1..4) ->
+                    list.add(Square((start.column + Math.abs(start.row - end.row) / 2),
+                            Math.abs(start.row - end.row) / 2 + min(end.row, start.row)))
+                (start.column == end.column) && (start.column in 5..8) ->
+                    list.add(Square((start.column - Math.abs(start.row - end.row) / 2),
+                            Math.abs(start.row - end.row) / 2 + min(end.row, start.row)))
+                else -> list.add(Square((start.row + start.column + end.column - end.row) / 2,
+                                (start.row + start.column - end.column + end.row) / 2))
+            }
+            list.add(end)
+        }
+    }
+    return list
+}
 
 /**
  * Средняя
