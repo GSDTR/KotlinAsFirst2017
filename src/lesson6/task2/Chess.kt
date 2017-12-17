@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson6.task2
 
+import java.lang.Integer.max
 import java.lang.Integer.min
+import java.lang.Math.abs
 
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
@@ -42,7 +44,7 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square =
-    if (notation[0] in 'a'..'h' && notation[1] in '1'..'8')
+    if ((notation[0] in 'a'..'h') && (notation[1] in '1'..'8'))
         Square(notation[0] - 'a'+ 1, notation[1].toString().toInt())
     else throw IllegalArgumentException()
 
@@ -203,7 +205,17 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int = TODO()
+fun kingMoveNumber(start: Square, end: Square): Int {
+    if ((start.row !in 1..8) && (start.column !in 1..8) &&
+            (end.row !in 1..8) && (end.column !in 1..8))
+        throw IllegalArgumentException()
+    return when {
+        start == end -> 0
+        abs(start.column - end.column) > abs(start.row - end.row) -> abs(start.column - end.column)
+        abs(start.column - end.column) < abs(start.row - end.row) -> abs(start.row - end.row)
+        else -> abs(start.column - end.column)
+    }
+}
 
 /**
  * Сложная
@@ -219,7 +231,92 @@ fun kingMoveNumber(start: Square, end: Square): Int = TODO()
  *          kingTrajectory(Square(3, 5), Square(6, 2)) = listOf(Square(3, 5), Square(4, 4), Square(5, 3), Square(6, 2))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun kingTrajectory(start: Square, end: Square): List<Square> {
+    val list = mutableListOf<Square>()
+    val difference = min(abs(end.row - start.row), abs(end.column - start.column))
+    when {
+        (start == end) -> list.add(start)
+        (start.row == end.row) -> {
+            for (i in 0 .. abs(start.column - end.column)){
+                if (start.column > end.column)
+                    list.add(Square(start.column - i, start.row))
+                if (start.column < end.column)
+                    list.add(Square(start.column + i, start.row))
+            }
+        }
+        (start.column == end.column) -> {
+            for (i in 0 .. abs(start.column - end.column)){
+                if (start.row > end.row)
+                    list.add(Square(start.column, start.row - i))
+                if (start.row < end.row)
+                    list.add(Square(start.column, start.row + i))
+            }
+        }
+        abs(start.column - end.column) == abs(start.row - end.row) ->
+            when {
+                (start.row > end.row) && (start.column > end.column) -> {
+                    for (i in 0 .. abs(end.row - start.row)) {
+                        list.add(Square(start.column - i, start.row - i))
+                    }
+                }
+                (start.row > end.row) && (start.column < end.column) -> {
+                    for (i in 0 .. abs(end.row - start.row)) {
+                        list.add(Square(start.column + i, start.row - i))
+                    }
+                }
+                (start.row < end.row) && (start.column > end.column) -> {
+                    for (i in 0 .. abs(end.row - start.row)) {
+                        list.add(Square(start.column - i, start.row + i))
+                    }
+                }
+                (start.row < end.row) && (start.column < end.column) -> {
+                    for (i in 0 .. abs(end.row - start.row)) {
+                        list.add(Square(start.column + i, start.row + i))
+                    }
+                }
+            }
+        else -> {
+            when {
+                (start.row > end.row) && (start.column > end.column) -> {
+                    for (i in 0..difference) {
+                        list.add(Square(start.column - i, start.row - i))
+                    }
+                }
+                (start.row > end.row) && (start.column < end.column) -> {
+                    for (i in 0..difference) {
+                        list.add(Square(start.column + i, start.row - i))
+                    }
+                }
+                (start.row < end.row) && (start.column > end.column) -> {
+                    for (i in 0..difference) {
+                        list.add(Square(start.column - i, start.row + i))
+                    }
+                }
+                (start.row < end.row) && (start.column < end.column) -> {
+                    for (i in 0..difference) {
+                        list.add(Square(start.column + i, start.row + i))
+                    }
+                }
+            }
+            if (difference == abs(end.row - start.row))
+                for (i in 1..abs(start.row - end.row)) {
+                    if (start.column > end.column)
+                        list.add(Square(start.column - abs(end.row - start.row) - i, end.row))
+                    if (start.column < end.column)
+                        list.add(Square(start.column + abs(end.row - start.row) + i, end.row))
+                }
+            else {
+                for (i in 1..abs(start.column - end.column)) {
+                    if (start.row > end.row)
+                        list.add(Square(end.column, start.row - abs(end.column - start.column) - i))
+                    if (start.row < end.row)
+                        list.add(Square(end.column, start.row + abs(end.column - start.column) + i))
+                }
+            }
+        }
+    }
+    return list
+}
 
 /**
  * Сложная
