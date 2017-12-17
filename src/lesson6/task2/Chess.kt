@@ -298,19 +298,20 @@ fun kingTrajectory(start: Square, end: Square): List<Square> {
                     }
                 }
             }
-            if (difference == abs(end.row - start.row))
-                for (i in 1..abs(start.row - end.row)) {
+            if (difference != abs(end.row - start.row)) {
+                for (i in 1..abs(start.row - end.row) - difference) {
                     if (start.column > end.column)
-                        list.add(Square(start.column - abs(end.row - start.row) - i, end.row))
+                        list.add(Square(end.column, start.row + difference + i))
                     if (start.column < end.column)
-                        list.add(Square(start.column + abs(end.row - start.row) + i, end.row))
+                        list.add(Square(end.column, start.row + difference + i))
                 }
+            }
             else {
-                for (i in 1..abs(start.column - end.column)) {
+                for (i in 1..abs(start.column - end.column) - difference) {
                     if (start.row > end.row)
-                        list.add(Square(end.column, start.row - abs(end.column - start.column) - i))
+                        list.add(Square(start.column + difference + i, end.row))
                     if (start.row < end.row)
-                        list.add(Square(end.column, start.row + abs(end.column - start.column) + i))
+                        list.add(Square(start.column + difference + i, end.row))
                 }
             }
         }
