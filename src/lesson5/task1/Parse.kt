@@ -74,10 +74,10 @@ fun dateStrToDigit(str: String): String {
     try {
         for (i in 0 .. 11){
             if (parts[1] == listOfMonths[i]) if (i > 8) list[1] = "${i + 1}"
-            else list[1] = "0${i + 1}"
+            else list[1] = String.format("%02d", i + 1)
         }
         if (list[1] == "") return ""
-        if (parts[0].toInt() in 1 .. 9) list[0] = "0${parts[0].toInt()}"
+        if (parts[0].toInt() in 1 .. 9) list[0] = String.format("%02d", parts[0].toInt())
             else list[0] = parts[0]
         list[2] = parts[2]
         return list.joinToString(separator = ".")
@@ -103,12 +103,12 @@ fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
     val list = mutableListOf<String>()
     try {
+        if (parts.size != 3) return ""
         for (i in 0 .. 2) {
             if ((parts[i].toInt() == 0) && (i != 2)) return ""
             if (i == 1) list.add(listOfMonths[parts[i].toInt() - 1])
             else list.add(parts[i].toInt().toString())
         }
-        if (parts.size != 3) return ""
         return list.joinToString(separator = " ")
     }
     catch (e: NumberFormatException) {
