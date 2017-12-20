@@ -43,10 +43,16 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square =
-    if ((notation[0] in 'a'..'h') && (notation[1] in '1'..'8'))
-        Square(notation[0] - 'a'+ 1, notation[1].toString().toInt())
-    else throw IllegalArgumentException()
+fun square(notation: String): Square {
+    try {
+        if ((notation[0] in 'a'..'h') && (notation[1] in '1'..'8'))
+            return Square(notation[0] - 'a' + 1, notation[1].toString().toInt())
+        else throw IllegalArgumentException()
+    }
+    catch (e: IndexOutOfBoundsException) {
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Простая
@@ -206,8 +212,8 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
 fun kingMoveNumber(start: Square, end: Square): Int {
-    if ((start.row !in 1..8) && (start.column !in 1..8) &&
-            (end.row !in 1..8) && (end.column !in 1..8))
+    if ((start.row !in 1..8) || (start.column !in 1..8) ||
+            (end.row !in 1..8) || (end.column !in 1..8))
         throw IllegalArgumentException()
     return when {
         start == end -> 0
@@ -301,7 +307,7 @@ fun kingTrajectory(start: Square, end: Square): List<Square> {
             if (difference != abs(end.row - start.row)) {
                 for (i in 1..abs(start.row - end.row) - difference) {
                     if (start.column > end.column)
-                        list.add(Square(end.column, start.row + difference + i))
+                        list.add(Square(end.column, start.row - difference - i))
                     if (start.column < end.column)
                         list.add(Square(end.column, start.row + difference + i))
                 }
@@ -309,7 +315,7 @@ fun kingTrajectory(start: Square, end: Square): List<Square> {
             else {
                 for (i in 1..abs(start.column - end.column) - difference) {
                     if (start.row > end.row)
-                        list.add(Square(start.column + difference + i, end.row))
+                        list.add(Square(start.column - difference - i, end.row))
                     if (start.row < end.row)
                         list.add(Square(start.column + difference + i, end.row))
                 }
